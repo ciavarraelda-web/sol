@@ -1,7 +1,8 @@
 import streamlit as st
 import requests
 
-API_URL = "http://localhost:3000/api"  # Cambia con il tuo backend se è online
+# Inserisci qui l'URL del tuo backend API (Node.js)
+API_URL = "http://TUO_BACKEND_SERVER:3000/api"  # <--- MODIFICA qui con il tuo vero server
 
 st.image("IMG_20250728_223508.jpg", width=300)
 st.title("SOLAY39 Mining Platform")
@@ -16,25 +17,38 @@ st.markdown(
 wallet = st.text_input("Enter your Solana wallet address:")
 
 if wallet:
+    # Chiamata API per info utente
     try:
-        resp = requests.get(f"{API_URL}/user_info?wallet={wallet}")
+        resp = requests.get(f"{API_URL}/user_info?wallet={wallet}", timeout=10)
         if resp.status_code == 200:
             user_info = resp.json()
+            # Debug: mostra la risposta API
+            # st.write(user_info)
             if not user_info.get("can_mine", False):
                 st.error("You need to hold at least 1 SOLAY39 to mine.")
             else:
                 st.success(f"Your balance: **{user_info['balance']} SOLAY39**")
                 st.info(f"Reward per click: **{user_info['current_reward']} SOLAY39**")
                 st.info(f"Mining quota left today: **{user_info['mining_left']} SOLAY39**")
-                st.write(f"SOLAY39 price: **€{user_info['price_eur']}**")
+                st.info(f"SOLAY39 price: **€{user_info['price_eur']}**")
                 if st.button("Mine!"):
-                    mine_resp = requests.post(f"{API_URL}/mine", json={"wallet": wallet})
+                    # Mining!
+                    mine_resp = requests.post(f"{API_URL}/mine", json={"wallet": wallet}, timeout=10)
                     result = mine_resp.json()
+                    # st.write(result) # Debug
                     if result.get("success"):
                         st.success(f"Mined! You received {result['reward']} SOLAY39.")
+                        st.info(f"Transaction: {result['tx']}")
                     else:
                         st.error(result.get("message", "Mining failed."))
         else:
-            st.error("Error connecting to backend. Please try again.")
+            st.error(f"API error: {resp.status_code} - {resp.text}")
     except Exception as e:
         st.error(f"API connection error: {e}")
+
+# Suggerimenti per debug
+st.markdown("""
+---
+**Non funziona? Segui questi passaggi:**
+- Il backend API deve essere online e accessibile da Streamlit.
+- Prova a fare una chiamata manuale API (con curl o browser):
