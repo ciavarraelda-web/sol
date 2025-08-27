@@ -58,3 +58,5 @@ st.markdown(
 - Make sure your backend API is online and accessible from the internet.
 - If using Streamlit Cloud, your backend must have a public domain (not localhost/private IP).
 - Test API manually with Postman or `curl` to ensure connection:
+"""
+)
