@@ -1,11 +1,15 @@
+import os
 import streamlit as st
 import requests
 
-# Inserisci qui l'URL del tuo backend API Node.js (reale, online e pubblico)
+# Inserisci qui l'URL del tuo backend API (Node.js reale, online e pubblico)
 API_URL = "http://TUO_BACKEND_SERVER:3000/api"  # <-- MODIFICA qui con il tuo vero server!
 
-# Logo (metti il file nella stessa cartella e modifica il nome se necessario)
-st.image("logo_solay39.jpg", width=200)
+# Mostra il logo se il file esiste
+if os.path.exists("IMG_20250728_223508.jpg"):
+    st.image("IMG_20250728_223508.jpg", width=200)
+else:
+    st.info("Carica il file 'IMG_20250728_223508.jpg' nella cartella dell'app per vedere il logo!")
 
 st.title("SOLAY39 Mining Platform")
 st.markdown(
