@@ -52,10 +52,6 @@ st.markdown(
     """
 ---
 **Debug & Help**
-- Assicurati che il backend API sia online e accessibile da Streamlit.
-- Se usi Streamlit Cloud, il backend deve essere pubblico (NON localhost).
-- Test API manuale: usa un client tipo **Postman** o `curl` per verificare la connessione.
-- Il mining reale avviene SOLO se il backend è configurato con la chiave privata e ha token nel wallet premi.
-- Per vedere la risposta grezza dell'API, puoi aggiungere `st.write(user_info)` o `st.write(result)` dove preferisci.
+
 """
 )
