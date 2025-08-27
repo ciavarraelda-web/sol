@@ -1,5 +1,4 @@
-import streamlit as st
-import requests
+import streamlit as stimport requests
 
 # Inserisci qui l'URL del tuo backend API (Node.js reale, online e pubblico)
 API_URL = "http://TUO_BACKEND_SERVER:3000/api"  # <-- MODIFICA qui con il tuo vero server!
@@ -39,6 +38,5 @@ if wallet:
     except Exception as e:
         st.error(f"API connection error: {e}")
 
-st.markdown(
 
 
