@@ -45,4 +45,6 @@ st.markdown(
 **Debug & Help**
 - Assicurati che il backend API sia online e accessibile da Streamlit.
 - Se usi Streamlit Cloud, il backend deve essere pubblico (NON localhost).
-- Test API manuale:
+- Test API manuale: usa un client tipo **Postman** o `curl` per verificare la connessione.
+"""
+)
