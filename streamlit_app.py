@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # Inserisci qui l'URL del tuo backend API (Node.js reale, online e pubblico)
-API_URL = "http://TUO_BACKEND_SERVER:3000/api"  # <--- MODIFICA qui con il tuo vero server!
+API_URL = "http://TUO_BACKEND_SERVER:3000/api"  # <-- MODIFICA qui con il tuo vero server!
 
 st.title("SOLAY39 Mining Platform")
 st.markdown(
@@ -39,7 +39,8 @@ if wallet:
     except Exception as e:
         st.error(f"API connection error: {e}")
 
-st.markdown("""
+st.markdown(
+    """
 ---
 **Debug & Help**
 - Assicurati che il backend API sia online e accessibile da Streamlit.
