@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+solana==0.26.0
+pysolana==0.0.0  # placeholder: se non usi, rimuovere
+spl-token==0.2.0  # potrebbe non esistere con esatto nome; vedi note sotto
+spl-token-client
+base58
