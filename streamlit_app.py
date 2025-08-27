@@ -1,12 +1,10 @@
 import streamlit as st
 import requests
 
-# Inserisci qui l'URL del tuo backend API (Node.js)
-API_URL = "http://TUO_BACKEND_SERVER:3000/api"  # <--- MODIFICA qui con il tuo vero server
+# Inserisci qui l'URL del tuo backend API (Node.js reale, online e pubblico)
+API_URL = "http://TUO_BACKEND_SERVER:3000/api"  # <-- MODIFICA qui con il tuo vero server!
 
-st.image("IMG_20250728_223508.jpg", width=300)
 st.title("SOLAY39 Mining Platform")
-
 st.markdown(
     """
     **Connect your Solana wallet and mine SOLAY39 tokens!**  
@@ -17,13 +15,10 @@ st.markdown(
 wallet = st.text_input("Enter your Solana wallet address:")
 
 if wallet:
-    # Chiamata API per info utente
     try:
-        resp = requests.get(f"{API_URL}/user_info?wallet={wallet}", timeout=10)
+        resp = requests.get(f"{API_URL}/user_info", params={"wallet": wallet}, timeout=10)
         if resp.status_code == 200:
             user_info = resp.json()
-            # Debug: mostra la risposta API
-            # st.write(user_info)
             if not user_info.get("can_mine", False):
                 st.error("You need to hold at least 1 SOLAY39 to mine.")
             else:
@@ -32,10 +27,8 @@ if wallet:
                 st.info(f"Mining quota left today: **{user_info['mining_left']} SOLAY39**")
                 st.info(f"SOLAY39 price: **€{user_info['price_eur']}**")
                 if st.button("Mine!"):
-                    # Mining!
-                    mine_resp = requests.post(f"{API_URL}/mine", json={"wallet": wallet}, timeout=10)
+                    mine_resp = requests.post(f"{API_URL}/mine", json={"wallet": wallet}, timeout=15)
                     result = mine_resp.json()
-                    # st.write(result) # Debug
                     if result.get("success"):
                         st.success(f"Mined! You received {result['reward']} SOLAY39.")
                         st.info(f"Transaction: {result['tx']}")
@@ -46,9 +39,9 @@ if wallet:
     except Exception as e:
         st.error(f"API connection error: {e}")
 
-# Suggerimenti per debug
 st.markdown("""
 ---
-**Non funziona? Segui questi passaggi:**
-- Il backend API deve essere online e accessibile da Streamlit.
-- Prova a fare una chiamata manuale API (con curl o browser):
+**Debug & Help**
+- Assicurati che il backend API sia online e accessibile da Streamlit.
+- Se usi Streamlit Cloud, il backend deve essere pubblico (NON localhost).
+- Test API manuale:
