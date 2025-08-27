@@ -1,5 +1,5 @@
 // SOLAY39 Mining Backend API - Node.js/Express
-// Pronto da usare: collega mining reale Solana + Streamlit frontend
+// Versione reale: invia token SPL su Solana
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -9,12 +9,11 @@ const { getOrCreateAssociatedTokenAccount, createTransferInstruction } = require
 const axios = require("axios");
 
 // ---------------- CONFIG ----------------
-const TOKEN_MINT = new PublicKey("P7rFSsngQyDaJb3fqDP49XJBz2qLnVkLxdD9yt4Yray");
-const SENDER_WALLET_ADDRESS = "DZoHMBRyTzShZC9dwQ2HgFwhSjUE2xWLEDypKoa2Mcp3"; // wallet di mining
-const DAILY_LIMIT = 2000;
-const FULL_REWARD_BALANCE = 100000;
-const BASE_REWARD = 50.0;
-const MIN_HOLD = 1; // minimo per minare
+const TOKEN_MINT = new PublicKey("P7rFSsngQyDaJb3fqDP49XJBz2qLnVkLxdD9yt4Yray"); // Mint SPL SOLAY39
+const DAILY_LIMIT = 2000;                   // Quota mining giornaliera per utente
+const FULL_REWARD_BALANCE = 100000;         // Saldo per reward piena
+const BASE_REWARD = 50.0;                   // Reward massima per mining
+const MIN_HOLD = 1;                         // Minimo token per minare
 
 // Chiave privata del wallet sender come variabile env: APP_WALLET_SECRET (base58)
 const APP_WALLET_SECRET = process.env.APP_WALLET_SECRET;
@@ -116,7 +115,7 @@ app.post("/api/mine", async (req, res) => {
   let mining_left = DAILY_LIMIT - mining_today;
   if (mining_left < reward) return res.json({ success: false, message: "Daily mining limit reached." });
 
-  // Invio token SPL
+  // Invio token SPL reale
   try {
     const recipientTokenAccount = await getOrCreateAssociatedTokenAccount(CONNECTION, APP_WALLET, TOKEN_MINT, new PublicKey(wallet));
     const senderTokenAccount = await getOrCreateAssociatedTokenAccount(CONNECTION, APP_WALLET, TOKEN_MINT, APP_WALLET.publicKey);
