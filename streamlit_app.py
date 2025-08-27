@@ -40,5 +40,5 @@ if wallet:
         st.error(f"API connection error: {e}")
 
 st.markdown(
-    """
+
 
