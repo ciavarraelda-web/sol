@@ -1,13 +1,15 @@
 import streamlit as st
 import requests
 
-API_URL = "http://localhost:3000/api"  # Use your backend URL
+API_URL = "http://localhost:3000/api"  # Change to your backend URL if deployed
 
-st.image("solay39_logo.png", width=300)
+# Show logo (make sure IMG_20250728_223508.jpg is in the same folder as this script)
+st.image("IMG_20250728_223508.jpg", width=300)
 st.title("SOLAY39 Mining Platform")
+
 st.markdown(
     """
-    **Connect your Solana wallet and mine SOLAY39 tokens!**
+    **Connect your Solana wallet and mine SOLAY39 tokens!**  
     [Buy SOLAY39 in presale (Raydium)](https://raydium.io/launchpad/token/?mint=P7rFSsngQyDaJb3fqDP49XJBz2qLnVkLxdD9yt4Yray)
     """
 )
