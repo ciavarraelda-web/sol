@@ -40,8 +40,4 @@ if wallet:
         st.error(f"API connection error: {e}")
 
 st.markdown("""
----
-**Debug & Help**
-- Assicurati che il backend API sia online e accessibile da Streamlit.
-- Se usi Streamlit Cloud, il backend deve essere pubblico (NON localhost).
-- Test API manuale:
+
