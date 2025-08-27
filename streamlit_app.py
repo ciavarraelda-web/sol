@@ -39,5 +39,6 @@ if wallet:
     except Exception as e:
         st.error(f"API connection error: {e}")
 
-st.markdown("""
+st.markdown(
+    """
 
